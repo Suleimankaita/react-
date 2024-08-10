@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            background-color: whitesmoke;
+        }
+        main{
+            width: 70%;
+            display:flex ;
+            flex-flow: column;
+        }
+        input{
+            margin: 10px;
+        }
+        .loader{
+      margin: 20px;
+      position: relative;
+      padding-block:10px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid whitesmoke;
+      border-top: 2px solid blue;
+      border-bottom: 2px solid rgb(106, 22, 22);
+      animation: spin 1s linear infinite; 
+  
+    }
+    @keyframes spin {
+
+      to{
+        transform: rotate(360deg);
+      }}
+      .lop{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      form{
+        display: none;
+      }
+    </style>
+</head>
+<body>
+        <form action="" id="submit">
+    <div style="display: flex; flex-flow: column; margin: 10px;">
+
+        <input type="text" autofocus placeholder="add item" id="txt" required>
+        <input type="search"  id="search" placeholder="saerch item" >
+            <button  type="submit">submit</button>
+    </div>
+
+    </form>
+    <main>
+<div class="lop"></div>
+
+    </main>
+    <script>
+        let show=document.querySelector("main")
+        let form=document.querySelector("form")
+        let lop=document.querySelector(".lop")
+        let load=true
+        let search=document.getElementById("search")
+        let data=[];
+        let submit=document.getElementById("submit")
+        let txt=document.getElementById("txt").value
+        let p=document.createElement("p")
+        let op=document.createElement("div")
+let loader=false
+
+
+if(!loader){
+
+op.classList.add("loader")
+lop.appendChild(op)
+
+}
+  
+    
+        console.log(txt.txt)
+    
+         const prop =(load)=>{
+             load.forEach(val => {
+                 let div=document.createElement("div")
+                 div.innerHTML=`
+                 <p>${val.name}</p>
+                 <p>${val.body}</p>
+                 <img src=${val.img} width="200px/>
+                
+                 `
+                 show.append(div)
+             });
+         } 
+        search.addEventListener("input",(e)=>{
+
+            let searchinput=search.value.toLowerCase()
+            let all=data.filter(item=>{
+                return item.item.toLowerCase().includes(searchinput)
+            })
+            display(all)
+        })
+
+        const api=`http://localhost:3500/Items`
+
+        const display=(my)=>{
+
+            show.innerHTML=""
+            my.forEach(item=>{
+                let div=document.createElement("div")
+                div.innerHTML=`
+                <p>${item.name}</p>
+                <div>
+                <button onclick="del(${item.id})">delete</button>
+
+                    </div>
+                
+                `
+                show.append(div)
+
+
+            })
+        }
+        
+        
+
+        const man=async()=>{
+            
+            try{
+                const response=await fetch("http://localhost:3500/post")
+                if(!response.ok) {throw Error("pls reload the page")}
+                const user= await response.json()
+                data=user
+               prop(data)
+                console.log(data)
+            }catch(err){
+         
+               console.log(err.message)
+                console.log(err.message)
+                p.textContent=err.message;
+                p.style.color='red'
+                show.appendChild(p)
+         
+            }
+            finally{
+ 
+            if(!loader){
+            loader =true
+            op.classList.remove("loader")
+            lop.appendChild(op)
+                form.style.display="block"
+
+            }
+
+            
+
+}               
+              
+
+
+        }
+        setTimeout(man,2000)
+    
+        submit.addEventListener("submit",async(e)=>{
+            e.preventDefault()
+            txt.value=""
+          
+            const bl={
+            id:1,
+            txt:txt,
+            checked:true
+        }
+
+        const add=async()=>{
+            
+            try{
+                const response=await fetch("http://localhost:3500/Items",{
+                    method:"POST",
+                    headers:{
+                        "Content-type":"application/json"
+                    },
+                    body:JSON.stringify(bl)
+                })
+                if(!response.ok) {throw Error("pls reload the page")}
+                const user= await response.json()
+              
+            }catch(err){
+                console.log(err.message)
+            }
+
+        }
+      add()
+
+        const add2=async()=>{
+            
+            try{
+                const response=await fetch("http://localhost:3500/Items",{
+                    method:"PATCH",
+                    headers:{
+                        "Content-type":"application/json"
+                    },
+                    body:JSON.stringify({...api,item:checked[0]})
+                })
+                if(!response.ok) {throw Error("pls reload the page")}
+                const user= await response.json()
+              
+            }catch(err){
+                console.log(err.message)
+            }
+
+        }
+        const del=async(de)=>{
+            
+            let mee=data.filter(item=>item.id!==de)
+                const response=await fetch(api,{
+                    method:"DELETE",
+                })
+                
+
+        }
+    })
+
+    </script>
+</body>
+</html>

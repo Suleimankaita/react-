@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input">
+<p id="i"></p>
+<p id="p"></p>
+    <script>
+        let index=1
+        let input=document.getElementById("input")
+        let i=document.getElementById("i")
+        let p=document.getElementById("p")
+        input.addEventListener("input",(e)=>{
+            i.textContent=e.target.value.trim().length;
+            if(e.target.value.trim().length>= 10 && e.target.value.trim().length<20 ) {
+                console.log("u write")
+            }
+
+        })
+    </script>
+</body>
+</html>

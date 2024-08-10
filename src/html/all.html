@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+.inventory-container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+.actions button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.actions .edit {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.actions .edit:hover {
+    background-color: #e0a800;
+}
+
+.actions .delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.actions .delete:hover {
+    background-color: #c82333;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inventory Management System</h1>
+        <div class="form-container">
+            <h2>Add New Item</h2>
+            <form id="inventory-form">
+                <input type="text" id="item-name" placeholder="Item Name" required>
+                <input type="number" id="item-quantity" placeholder="Quantity" required>
+                <input type="text" id="item-description" placeholder="Description">
+                <button type="submit">Add Item</button>
+            </form>
+        </div>
+        <div class="inventory-container">
+            <h2>Inventory</h2>
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Inventory items will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script >
+        document.getElementById('inventory-form').addEventListener('submit', addItem);
+
+let inventory = [];
+
+function addItem(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('item-name').value;
+    const quantity = document.getElementById('item-quantity').value;
+    const description = document.getElementById('item-description').value;
+
+    const item = {
+        id: Date.now(),
+        name,
+        quantity,
+        description
+    };
+
+    inventory.push(item);
+    displayInventory();
+
+    document.getElementById('inventory-form').reset();
+}
+
+function displayInventory() {
+    const inventoryTable = document.getElementById('inventory-table').getElementsByTagName('tbody')[0];
+    inventoryTable.innerHTML = '';
+
+    inventory.forEach(item => {
+        const row = inventoryTable.insertRow();
+
+        const cellName = row.insertCell(0);
+        const cellQuantity = row.insertCell(1);
+        const cellDescription = row.insertCell(2);
+        const cellActions = row.insertCell(3);
+
+        cellName.innerText = item.name;
+        cellQuantity.innerText = item.quantity;
+        cellDescription.innerText = item.description;
+        cellActions.innerHTML = `
+            <div class="actions">
+                <button class="edit" onclick="editItem(${item.id})">Edit</button>
+                <button class="delete" onclick="deleteItem(${item.id})">Delete</button>
+            </div>
+        `;
+    });
+}
+
+function editItem(id) {
+    const item = inventory.find(item => item.id === id);
+    
+    document.getElementById('item-name').value = item.name;
+    document.getElementById('item-quantity').value = item.quantity;
+    document.getElementById('item-description').value = item.description;
+
+    deleteItem(id);
+}
+
+function deleteItem(id) {
+    inventory = inventory.filter(item => item.id !== id);
+    displayInventory();
+}
+
+    </script>
+</body>
+</html>

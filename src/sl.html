@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas Cylinders Shopping Cart</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    padding: 2rem;
+}
+
+.product-list, .shopping-cart {
+    flex: 1;
+    margin: 1rem;
+}
+
+.product {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.product img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+.product h2 {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+}
+
+.product p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.add-to-cart {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.add-to-cart:hover {
+    background-color: #218838;
+}
+
+.shopping-cart {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
+
+.shopping-cart h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.cart-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+.cart-items li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.total {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+</style>
+<body>
+    <header>
+        <h1>Gas Cylinders Shopping Cart</h1>
+    </header>
+    <main>
+        <section class="product-list">
+            <div class="product">
+                <img src="gas-cylinder-1.jpg" alt="Gas Cylinder 1">
+                <h2>Gas Cylinder 1</h2>
+                <p>Price: $50</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="gas-cylinder-2.jpg" alt="Gas Cylinder 2">
+                <h2>Gas Cylinder 2</h2>
+                <p>Price: $75</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <!-- Add more products as needed -->
+        </section>
+        <section class="shopping-cart">
+            <h2>Shopping Cart</h2>
+            <ul class="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+            </ul>
+            <div class="total">
+                <p>Total: $<span id="total-amount">0</span></p>
+            </div>
+        </section>
+    </main>
+    <script >
+        document.addEventListener('DOMContentLoaded', () => {
+    const cartItems = [];
+    const cartItemsList = document.querySelector('.cart-items');
+    const totalAmount = document.getElementById('total-amount');
+    
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', event => {
+            const product = event.target.closest('.product');
+            const productName = product.querySelector('h2').textContent;
+            const productPrice = parseFloat(product.querySelector('p').textContent.replace('Price: $', ''));
+            
+            cartItems.push({ name: productName, price: productPrice });
+            updateCart();
+        });
+    });
+    
+    function updateCart() {
+        cartItemsList.innerHTML = '';
+        let total = 0;
+        
+        cartItems.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - $${item.price}`;
+            cartItemsList.appendChild(li);
+            total += item.price;
+        });
+        
+        totalAmount.textContent = total.toFixed(2);
+    }
+});
+
+    </script>
+</body>
+</html>

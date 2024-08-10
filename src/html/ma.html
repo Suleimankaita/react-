@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Movement Tracking</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#map {
+    height: 500px;
+    margin: 20px 0;
+}
+
+#status, #speed {
+    font-size: 1.2em;
+    color: #333;
+}
+
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>User Movement Tracking</h1>
+        <div id="map"></div>
+        <div id="status"></div>
+        <div id="speed"></div>
+    </div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script >
+
+var all={
+    lan:undefined,
+    long:undefined
+}
+
+    const status = document.getElementById('status');
+    const speedDisplay = document.getElementById('speed');
+    const map = L.map('map').setView([all.lat, all.long], 3.5);
+    let userMarker = L.marker([0, 0]).addTo(map);
+    let userPath = L.polyline([]).addTo(map);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    function updateStatus(message) {
+        status.textContent = message;
+    }
+
+    function updateMap(lat, lng) {
+        all.lan=lat
+        all.long=lng
+        const latlng = [lat, lng];
+        userMarker.setLatLng(latlng);
+        map.setView(latlng, 13);
+        userPath.addLatLng(latlng);
+    }
+
+    if ('geolocation' in navigator) {
+        navigator.geolocation.watchPosition(position => {
+            const { latitude, longitude, speed } = position.coords;
+            updateStatus(`Latitude: ${latitude}, Longitude: ${longitude}`);
+            updateMap(latitude, longitude);
+        }, error => {
+            updateStatus('Unable to retrieve your location');
+            updateSpeed(null);
+        });
+    } else {
+        updateStatus('Geolocation is not supported by your browser');
+    }
+
+    </script>
+</body>
+</html>

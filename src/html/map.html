@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation Speed on Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+        }
+        #info {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <button onclick="startWatching()">Start Watching</button>
+        <button onclick="stopWatching()">Stop Watching</button>
+        <p id="status"></p>
+        <p id="speed"></p>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        let marker = L.marker([0, 0]).addTo(map)
+            .bindPopup('Waiting for location...')
+            .openPopup();
+
+        let watchId;
+        let lastPosition;
+        const speedThreshold = 10; // Speed threshold in meters per second (m/s)
+
+        function startWatching() {
+            if ("geolocation" in navigator) {
+                watchId = navigator.geolocation.watchPosition(success, error, { enableHighAccuracy: true });
+                document.getElementById("status").textContent = "Watching for position changes...";
+            } else {
+                document.getElementById("status").textContent = "Geolocation is not supported by your browser.";
+            }
+        }
+
+        function stopWatching() {
+            if (watchId) {
+                navigator.geolocation.clearWatch(watchId);
+                document.getElementById("status").textContent = "Stopped watching for position changes.";
+            }
+        }
+
+        function success(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const newLatLng = new L.LatLng(lat, lon);
+
+            if (lastPosition) {
+                const speed = calculateSpeed(lastPosition, position);
+                document.getElementById("speed").textContent = `Speed: ${speed.toFixed(2)} m/s`;
+                if (speed > speedThreshold) {
+                    document.getElementById("status").textContent = `Speed exceeded threshold! Speed: ${speed.toFixed(2)} m/s`;
+                } else {
+                    document.getElementById("status").textContent = `Speed: ${speed.toFixed(2)} m/s`;
+                }
+
+                marker.setLatLng(newLatLng)
+                    .setPopupContent(`Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}<br>Speed: ${speed.toFixed(2)} m/s`)
+                    .openPopup();
+                map.setView(newLatLng, map.getZoom());
+            } else {
+                marker.setLatLng(newLatLng)
+                    .setPopupContent(`Latitude: ${lat.toFixed(4)}, Longitude: ${lon.toFixed(4)}<br>Speed: 0 m/s`)
+                    .openPopup();
+                map.setView(newLatLng, map.getZoom());
+            }
+
+            lastPosition = position;
+        }
+
+        function error(err) {
+            document.getElementById("status").textContent = `Unable to retrieve your location: ${err.message}`;
+        }
+
+        function calculateSpeed(pos1, pos2) {
+            const lat1 = pos1.coords.latitude;
+            const lon1 = pos1.coords.longitude;
+            const lat2 = pos2.coords.latitude;
+            const lon2 = pos2.coords.longitude;
+
+            const R = 6371e3; // Earth radius in meters
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δφ = (lat2 - lat1) * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                      Math.cos(φ1) * Math.cos(φ2) *
+                      Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            const distance = R * c; // Distance in meters
+            const time = (pos2.timestamp - pos1.timestamp) / 1000; // Time in seconds
+
+            const speed = distance / time; // Speed in m/s
+            return speed;
+        }
+    </script>
+</body>
+</html>

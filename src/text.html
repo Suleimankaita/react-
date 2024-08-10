@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>test</h1>
+    <div class="display" id="display" ></div>
+    <script>
+        let arr=[]
+        let cart=[]
+        let display=document.getElementById("display")
+        
+        const fet=async()=>{
+            const fe=await fetch ("./s.json")
+            const res=await fe.json()
+            console.log(res)
+            arr=res
+            show(arr)
+        }
+        fet()
+
+        const show=(names)=>{
+            names.map(name => {
+
+                let div=document.createElement("div")
+              let me=  div.dataset.names=name.id
+                div.innerHTML=`
+                <p>${name.name}</p>
+                <p>${name.quantity}</p>
+                <p>${name.title}</p>
+
+                <button onclick="add(${{name:name.name,quantity}})">add</button>
+                `
+                display.appendChild(div)
+            });
+        }
+        const add=(id)=>{
+            
+            const exi=arr.find(name=> name.id===id)
+            if(cart<=0){
+                cart.push(id)
+                console.log(cart)
+            }else if(exi){
+                exi.quantity=+1
+                console.log(cart)
+
+            }
+        }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

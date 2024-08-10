@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" id="form">
+        <label for="firstname">firstname</label>
+        <input type="text" name="firstname" id="firstname">
+        <label for="password">password</label>
+        <input type="password" name="password" id="password">
+
+        <button>submit</button>
+    </form>
+    <p id="p"></p>
+    <script>
+        let form=document.getElementById("form")
+    let p=document.getElementById("p")
+
+        form.addEventListener("submit",async(e)=>{
+            e.preventDefault()
+         
+            const man =async()=>{
+                let input1=document.getElementById("firstname").value;
+                let input2=document.getElementById("password").value;
+
+                let v={ in1:input1,in:input2}
+                p.textContent=`firstname: ${v.in} 
+                password: ${v.in1}
+                `
+
+            console.log(v)
+            input1.value=""
+            input2.value=""
+            }
+            await man()
+            
+        })
+
+    </script>
+</body>
+</html>
