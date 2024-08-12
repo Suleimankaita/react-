@@ -9,6 +9,7 @@ import Delivery from './Delivery';
 import Item from './item';
 import Search from './search'
 import History from './History';
+import Setting from './setting';
  import {Dataprovider} from './context/Datacontext';
  import Datacontext from './context/Datacontext';
  import { useContext } from 'react';
@@ -40,6 +41,9 @@ const App = () => {
             </Route>
             <Route  path="/Delivery">
               <Delivery/>
+            </Route>
+            <Route  path="/setting">
+              <Setting/>
             </Route>
           
           

@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext ,useRef} from "react";
+import { useState, useEffect, createContext ,useRef, useCallback} from "react";
 import api from "../api/axios"
 import bunner2 from "../img/bunner2.jpeg"
 import bunner3 from "../img/bunner3.jpeg"
@@ -226,11 +226,11 @@ export const Dataprovider=({children})=>{
     const [change,setchange]=useState(null)
 
 
-   
-    const show=()=>{
+    const mm=useCallback(()=>{
       
-        setdisp(
-        <div className="show"> 
+        setdisp(<>
+
+        <div className="show" ref={render}> 
 
             {searchresult.map((post)=>(
 
@@ -249,9 +249,11 @@ export const Dataprovider=({children})=>{
                 </div>
                 
             ))}
-            </div>)
+            </div>
+            </>
+            )
       
-  }
+},[search,setsearch])
 
     useEffect(()=>{
 
@@ -328,11 +330,11 @@ export const Dataprovider=({children})=>{
 
     return (
         <Datacontext.Provider value={{
-            search,setsearch,searchresult,post,setpost,show
+            search,setsearch,searchresult,post,setpost
             ,disp,setdisp,change,setchange,Cash,display,setdisplay
             ,count,setcount,check,all,setall,pt2,setpt2,all2,setall2
-            ,vew,setvew,vews,setvews,setarr,arr,setstore,store,shw
-            ,shows,removeFromCart,cart,setCart,add,inc,total,del,loading,err
+            ,vew,setvew,vews,setvews,setarr,arr,setstore,store,shw,render
+            ,shows,removeFromCart,cart,setCart,add,inc,total,del,loading,err,mm
         }}>
             {children}
         </Datacontext.Provider>

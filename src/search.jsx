@@ -4,28 +4,38 @@ import Datacontext from './context/Datacontext'
 import { FaSearch} from 'react-icons/fa'
 
 const search = () => {
-    const {search,setsearch,show,searchresult }=context(Datacontext)
-    
+    const {setdisp,mm,search,setsearch,show,searchresult ,render }=context(Datacontext)
 
     eff(()=>{
         const al=()=>{
             
-            if(search  ===searchresult ){ return}
-            else{
-        if(search){
-        show()
-      } }
+            // if(search  !==searchresult ){ return}
+            if(search.length>0){
+                
+                mm()
+  } 
+            else if( search === ""){
+                
+          return setdisp(null)
+                
+          }
+       
 
       }
-      al()
+        al()
 
     
     },[search,searchresult])
     
-  
+        eff(()=>{
+             return()=> window.removeEventListener("load", mm())
+             
+
+        },[])
+
   return (
     <div className="input">
-            <form className='form' action="" onSubmit={(e=>e.preventDefault())}>
+            <form className='form'  onSubmit={(e=>e.preventDefault())}>
 
                 <div className="search">
                     <FaSearch className='sear'/>
@@ -33,7 +43,7 @@ const search = () => {
                     style={{zIndex:"100000",padding:"10px"}}
                     placeholder='Search'
                     value={search}
-                    onChange={(e)=>{
+                    onInput={(e)=>{
                         setsearch(e.target.value)
                         
                     }

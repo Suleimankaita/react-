@@ -1,27 +1,22 @@
 import React from 'react'
-
+import Header from "./header"
+import Datacontext from './context/Datacontext'
+import { useContext as context } from 'react'
 const setting = () => {
+  const {cart} =context(Datacontext)
+
   return (
-    <div>setting
       
-            {/* <div className="cash">
+    <div>
+            <Header cart={cart.length}/> 
+      
+      
+              <div className="hsit">
+                <h1>on progress.......</h1>
+              </div>
+          </div>
 
-
-               <div className="delivery"> 
-                  <button  className='deli' style={{backgroundColor:"rgb(12, 158, 231)"}}>cash and delivery</button>
-                 <button className='deli' style={{backgroundColor:"rgb(41, 182, 95)"}}>online payment</button>
-             </div>
-                <div className="absolute">           
-                 {display}</div>
-                  
-                  <Table post={find}/>
-             
-    <br />
-
-            </div> */}
-
-
-    </div>
+            
   )
 }
 

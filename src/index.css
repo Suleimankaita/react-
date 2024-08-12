@@ -50,6 +50,9 @@
   position: relative;
   top: -50px;
 }
+.h{
+  display: none;
+}
 @keyframes sp {
   0%{
     transform: rotate(360deg);
@@ -384,19 +387,13 @@ body{
     padding: 5px;
   }
   .searchresult{
-    display: flex;
-    height: auto;
-    justify-content: center;
     position: absolute;
     transform: translateY(65px);
-    z-index: 10;
-    width: 100%;
-    flex: 1 1 200px;
   }
   .show{
     display: flex;
     flex-flow: column;
-    width: 70%;
+    width: 100%;
     transform: translateY(-67.7px);
     left: -150px;
     position: relative;
@@ -1078,7 +1075,7 @@ body{
     position: absolute;
     left: 200px;
     z-index: 10;
-    width: 70%;
+    width: 80%;
     flex: 1 1 200px;
   }
   .table{
@@ -1126,16 +1123,7 @@ padding: 10px;
     background-color: black;
     color: white;
   }
-  .show{
-    display: flex;
-    flex-flow: column;
-    width: 70%;
-    transform: translateY(-69.7px);
-    position: relative;
-    background-color: rgb(255, 255, 255);
-  
-    
-  }
+
 
   .search1{
     display: flex;
@@ -1733,13 +1721,11 @@ padding: 10px;
   .show{
     display: flex;
     flex-flow: column;
-    width: 70%;
+    width: 90%;
     transform: translateY(-55px);
-  
     position: relative;
-    background-color: rgb(255, 255, 255);
-  
-    
+    right:14%;
+    background-color: rgb(255, 255, 255);    
   }
   .pp{
     display: flex;
@@ -2393,7 +2379,7 @@ padding: 10px;
         position: absolute;
         left: 100px;
         z-index: 10;
-        width: 70%;
+        width: 100%;
         flex: 1 1 200px;
       }
       .table{
@@ -2992,7 +2978,16 @@ padding: 10px;
         font-size: 20px;
       }
       
-      
+      .searchresult{
+        display: flex;
+        height: auto;
+        justify-content: center;
+        position: absolute;
+        left: 10px;
+        z-index: 10;
+        width: 100%;
+        flex: 1 1 200px;
+      }
       .btn{
         position: relative;
         margin: 10;
@@ -3387,16 +3382,6 @@ padding: 10px;
       }
       .lii{
         margin: 20px;
-      }
-      .searchresult{
-        display: flex;
-        height: auto;
-        justify-content: center;
-        position: absolute;
-        left: 200px;
-        z-index: 10;
-        width: 70%;
-        flex: 1 1 200px;
       }
       .table{
         display: flex;
