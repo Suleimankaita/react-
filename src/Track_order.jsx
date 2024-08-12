@@ -14,7 +14,6 @@ const Track_order = () => {
   
     <article className='art-2'>
     <main className='Track_order'>
-      <h1>Track_order</h1>
 
    <p style={{transform:"translateY(20px)",fontSize:"20px",}}>&#8358; <b>{total}  </b></p>
         <div className="cover-2">
@@ -25,17 +24,17 @@ const Track_order = () => {
                <img className='cart_img' src={item.img} alt={item.name} width={"55%"} height={"55%"}/>
                 <span className='spc' style={{transform:"translate(45px,49px)",textAlign:"center",whiteSpace:"nowrap",textAlign:"center",fontSize:"19px"}}>{item.name}</span>
              </div>
-              <div className="btn-pt">
+              <div className="btn-pt se" style={{margin:"50px 5px 0px 5px"}}>
             <button className='bt' onClick={()=>removeFromCart(item.name)} disabled={item.quantity===0 }>-</button>
            <span style={{marginLeft:"5px",marginRight:"5px",fontSize:"19px",textAlign:"center",transform:"translateY(5px)"}}>  {item.quantity}</span>
         
         <button className='bt' onClick={()=>inc(item.name)}  >+</button>
-        <button  onClick={()=>del(item.name)} className='trash bt'><FaTrashCan role='button'
+        <button  onClick={()=>del(item.name)} className='trash bt ns'><FaTrashCan role='button'
         tabIndex='0'
         /></button>
          
       </div>
-            </div>
+      </div>
           ))}
           
         </>
@@ -47,8 +46,8 @@ const Track_order = () => {
         
         <div style={{
           height:"90vh",
-          display:"flex",alignItems:"center",justifyContent:"center"}}>
-          <p style={{transform:"translateY(-50px)"}}>your cart is empty</p>
+          display:"flex",alignItems:"start",justifyContent:"center"}}>
+          <p style={{transform:"translateY(-500px)"}}>your cart is empty</p>
           </div>
         </>
         }
