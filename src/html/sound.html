@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Pronunciation</title>
+    <style>
+   textarea {
+    width: 10%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; 
+    overflow: hidden; 
+    min-height: 15px; 
+    max-height: 100px; 
+}
+textarea::-webkit-scrollbar{
+    width: 100px;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+    </style>
+</head>
+<body>
+    <textarea name="" id="txt" placeholder="write a text here"></textarea>
+    <button id="speak-button">Speak</button>
+
+
+    <script>
+
+const input = document.getElementById('txt');
+    const button = document.getElementById('speak-button');
+
+
+    button.addEventListener("click",(e)=>{
+
+        let txt=input.value;
+        let me =new SpeechSynthesisUtterance(txt)
+        me.pitch=1
+        me.rate=1
+        speechSynthesis.speak(me)
+
+    })
+
+
+    input.addEventListener("input",(e)=>{
+        input.style.height="auto"
+        input.style.height=`${input.scrollHeight}px`
+
+    })
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link } from 'react-router-dom'
+
 import React from 'react'
 import { FaShoppingCart,FaMapMarkerAlt} from 'react-icons/fa'
-import Search from '../search';
+import Search from '../features/search';
 import { useContext as context } from 'react';
 import Datacontext from './Datacontext';
-const header = () => {
+const headers = () => {
   const {cart, shows}=context(Datacontext)
   
 
@@ -29,4 +30,4 @@ const header = () => {
   )
 }
 
-export default header
+export default headers

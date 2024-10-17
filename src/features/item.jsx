@@ -1,38 +1,42 @@
 import React, { useCallback as call, useMemo } from 'react'
-import { useParams as param,link } from 'react-router-dom/cjs/react-router-dom.min'
+import { useParams as param } from 'react-router-dom'
+import Foter from './layout/foter'
 import { useContext as context,useEffect as effect ,useState as state} from 'react'
 import Table from "./table2"
-import { FaTrashCan ,FaStar } from 'react-icons/fa6'
+import { FaTrashCan ,FaStar,FaX } from 'react-icons/fa6'
 import  Header from "./header"
-import Datacontext from './context/Datacontext'
+import Datacontext from '../context/Datacontext'
 import Table1 from './table1'
 import Table2 from './table2'
 import Table3 from './table3'
 import Sec from './sec'
+import Head from './head'
 const item = () => {
 
 
     const {post,setchange,change,Cash,display,all2,shw
       ,setall,all,setall2,pt2,setpt2,vew,setvews,vews,arr,setarr,cart,add,
-      setCart,removeFromCart,inc,total,del,loading} = context(Datacontext)
+      setCart,removeFromCart,inc,total,del,loading,hides} = context(Datacontext)
     const {id}=param()
     const find =post.find(post=> post.id === parseInt(id))
     const [view,setview]=state('')
 
   
     effect(()=>{
-      let char = 0;
-        const txt=useMemo=()=>{
-          let all = find.body1;
-          if (char<=all.length ){
-              setview(all.slice(0,char))
-              char++   
-          }
-        setTimeout(txt,5)
+      // let char = 0;
+      //   const txt=useMemo=()=>{
+      //     let all = find.body1;
+      //     if (char<=all.length ){
+      //         setview(all.slice(0,char))
+      //         char++   
+      //     }
+      //   setTimeout(txt,5)
 
     
-      }
-      txt()
+      // }
+      // txt()
+      setview(find.body1)
+
       setpt2( 
         <>
         <h1 style={{fontSize:"25px"}}>{find.name}</h1>
@@ -71,27 +75,27 @@ const item = () => {
 
     const s=call(()=>{
       let char = 0;
-      const txt=useMemo=()=>{
-        let all = find.body1;
-        if (char<=all.length ){
-            setview(all.slice(0,char))
-            char++   
-        }
-        setTimeout(txt,1)
-      }
-      setTimeout(()=>{
-        if(find.body1.length < find.body2.length  ||find.body1.length < find.body3.length||find.body3.length < find.body2.length  ||find.body3.length < find.body1.length){
-          setTimeout(()=>{
-            txt()
-          }
-,1000)
-        }else{
-          setTimeout(()=>{
-            txt()
+//       const txt=useMemo=()=>{
+//         let all = find.body1;
+//         if (char<=all.length ){
+//             setview(all.slice(0,char))
+//             char++   
+//         }
+//         setTimeout(txt,1)
+//       }
+//       setTimeout(()=>{
+//         if(find.body1.length < find.body2.length  ||find.body1.length < find.body3.length||find.body3.length < find.body2.length  ||find.body3.length < find.body1.length){
+//           setTimeout(()=>{
+//             txt()
+//           }
+// ,1000)
+//         }else{
+//           setTimeout(()=>{
+//             txt()
     
-          },1)
-        }
-      },500)
+//           },1)
+//         }
+//       },500)
           setchange(
         <div className="view">
             <img src={find.img} alt="" width={"400px"} height={"400px"}/>   
@@ -124,28 +128,30 @@ const item = () => {
 
     
     const show2=call(()=>{
-      let char = 0;
-      const txt=useMemo=()=>{
-        let all = find.body2;
-        if (char<=all.length ){
-            setview(all.slice(0,char))
-            char++   
-        }
-        setTimeout(txt,1)
-      }
-      setTimeout(()=>{
-        if(find.body2.length < find.body1.length  ||find.body2.length < find.body3.length||find.body3.length < find.body2.length  ||find.body3.length < find.body1.length){
-          setTimeout(()=>{
-            txt()
+      // let char = 0;
+      // const txt=useMemo=()=>{
+      //   let all = find.body2;
+      //   if (char<=all.length ){
+      //       setview(all.slice(0,char))
+      //       char++   
+      //   }
+      //   setTimeout(txt,1)
+      // }
+      // setTimeout(()=>{
+      //   if(find.body2.length < find.body1.length  ||find.body2.length < find.body3.length||find.body3.length < find.body2.length  ||find.body3.length < find.body1.length){
+      //     setTimeout(()=>{
+      //       txt()
     
-          },500)
-        }else{
-          setTimeout(()=>{
-            txt()
+      //     },500)
+      //   }else{
+      //     setTimeout(()=>{
+      //       txt()
     
-          },1)
-        }
-      },500)
+      //     },1)
+      //   }
+      // },500)
+      setview(find.body2)
+
       setpt2( 
         <>
         <h1 style={{fontSize:"25px"}}>{find.name2}</h1>
@@ -174,29 +180,29 @@ const item = () => {
 
         const show3=()=>{
           let char = 0;
-          const txt=useMemo=()=>{
-            let all = find.body3
-            if (char<=all.length ){
+          // const txt=useMemo=()=>{
+          //   let all = find.body3
+          //   if (char<=all.length ){
     
-                setview(all.slice(0,char))
-                char++   
-            }
-            setTimeout(txt,1)
+          //       setview(all.slice(0,char))
+          //       char++   
+          //   }
+          //   setTimeout(txt,1)
     
         
-          }  
-              if(find.body3.length < find.body2.length  ||find.body3.length < find.body1.length||find.body1.length < find.body3.length  ||find.body1.length < find.body2.length){
-                setTimeout(()=>{
-              txt()
+          // }  
+          //     if(find.body3.length < find.body2.length  ||find.body3.length < find.body1.length||find.body1.length < find.body3.length  ||find.body1.length < find.body2.length){
+          //       setTimeout(()=>{
+          //     txt()
       
-            },1000)
-          }else{
-            setTimeout(()=>{
-              txt()
+          //   },1000)
+          // }else{
+          //   setTimeout(()=>{
+          //     txt()
       
-            },1)
-          }
-    
+          //   },1)
+          // }
+      setview(find.body3)
           setchange( 
             <>
             <div className="view">
@@ -302,7 +308,20 @@ const item = () => {
              </div>
         </div>
    <aside className='aside' ref={shw}>
+    <div style={{display:"flex",width:"100%",justifyContent:"flex-end"}}>
+   <div className="x" style={{
+   left:"546px",borderRadius:"50%",
+   height:"30px",
+   width:"30px",
+   display:"flex",
+   justifyContent:"center",
+   alignItems:"center",
+}}>
+   <FaX onClick={hides}/>
+   </div>
+   </div>
    <p>&#8358;{total}</p>
+   
         <div className="cover">
             <>
         {cart.map((item) => (
@@ -311,6 +330,7 @@ const item = () => {
                <img className='cart_img' src={item.img} alt="" width={"50px"} height={"50px"}/>
                 <span style={{transform:"translate(15px,49px)",whiteSpace:"nowrap"}}>{item.name}</span>
              </div>
+             
               <div className="btn-pt">
             <button onClick={()=>removeFromCart(item.name)} disabled={item.quantity===0 }>-</button>
            <span style={{marginLeft:"5px",marginRight:"5px",fontSize:"17px",textAlign:"center",transform:"translateY(5px)"}}>  {item.quantity}</span>
@@ -364,7 +384,8 @@ const item = () => {
           </div>
   
           </div> */}
-
+<Head/>
+<Foter/>
     </section>
       
     </>

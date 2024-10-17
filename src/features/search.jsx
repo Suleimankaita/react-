@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContext as context, useEffect as eff } from 'react'
-import Datacontext from './context/Datacontext'
+import Datacontext from '../context/Datacontext'
 import { FaSearch} from 'react-icons/fa'
 
 const search = () => {

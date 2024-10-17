@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaHome,FaShoppingCart,FaHistory,FaCheck } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom'
 
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
 const fotter = () => {
   return (
     <footer className='fotter'>

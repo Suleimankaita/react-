@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContext as context } from 'react'
-import Datacontext from './context/Datacontext'
+import Datacontext from '../context/Datacontext'
 import { FaTrashCan} from 'react-icons/fa6'
 import Header from './header'
 
@@ -43,12 +43,12 @@ const Track_order = () => {
         {!cart.length&&
         <>
 
-        
+{/*         
         <div style={{
           height:"90vh",
           display:"flex",alignItems:"start",justifyContent:"center"}}>
           <p style={{transform:"translateY(-500px)"}}>your cart is empty</p>
-          </div>
+          </div> */}
         </>
         }
         

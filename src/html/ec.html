@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Recognition Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #start-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Voice Recognition Example</h1>
+    <button id="start-btn">Start Voice Recognition</button>
+    <div id="result"></div>
+
+    <script >
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = 'en-US'; 
+    recognition.interimResults = false; 
+    recognition.maxAlternatives = 1; 
+
+    const startButton = document.getElementById('start-btn');
+    const resultDiv = document.getElementById('result');
+
+    startButton.addEventListener('click', () => {
+        recognition.start();
+    });
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        resultDiv.textContent = `You said: ${transcript}`;
+    };
+
+    recognition.onerror = (event) => {
+        resultDiv.textContent = `Error occurred: ${event.error}`;
+    };
+
+    recognition.onend = () => {
+        console.log('Speech recognition ended');
+    };
+} else {
+    alert('Sorry, your browser does not support the Web Speech API.');
+}
+
+
+    </script>
+</body>
+</html>

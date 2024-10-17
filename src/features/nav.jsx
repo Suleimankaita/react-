@@ -1,23 +1,25 @@
 import React from 'react'
 import { FaHome,FaShoppingCart,FaHistory,FaTimes,FaBars,FaCheck } from 'react-icons/fa'
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
+import { NavLink } from 'react-router-dom'
  import { useRef as Ref, useEffect as ef} from 'react' 
+ import { Dataprovider } from '../context/Datacontext'
  
 
 const nav = () => {
 
 
   return (
+    // <Dataprovider>
     <>
     
-    <nav className='nav'>
+    <nav className='nav' style={{zIndex:"1000"}}>
       <div className="close">
         <button className='btn' >
         </button>
       </div>
       <ul className='ul'>
       
-      <NavLink to="/" activeClassName="actives">
+      <NavLink to="/">
       <li className='li'>
         <div className="fl"> 
           <FaHome className='svg'/>
@@ -26,7 +28,7 @@ const nav = () => {
            </li>
            </NavLink>
       
-      <NavLink to="/Track_order">
+      <NavLink to="Track_order">
       <li className='li'>
         <div className="fl"> 
           <FaShoppingCart className=' svg '/>
@@ -52,13 +54,21 @@ const nav = () => {
           </div>
            </li>
            </NavLink>
+      <NavLink to="/setting">
+      <li className='li'>
+        <div className="fl"> 
+          <FaCheck className='svg'/>
+          <span className='spn'> setting </span>
+          </div>
+           </li>
+           </NavLink>
 
       </ul>
     </nav>
     <button  className='btn'>
     </button>
     </>
-
+    // </Dataprovider>
   )
 }
 

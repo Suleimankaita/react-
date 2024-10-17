@@ -1,8 +1,8 @@
 import React, { useState, useEffect,useMemo, useCallback } from 'react';
-import img1 from "./img/g1.jpg"
-import img2 from "./img/g2.jpg"
-import img3 from "./img/g3.jpg"
-import img4 from "./img/g4.jpg"
+import img1 from "../img/g1.jpg"
+import img2 from "../img/g2.jpg"
+import img3 from "../img/g3.jpg"
+import img4 from "../img/g4.jpg"
 
 const images = [
         img1,
